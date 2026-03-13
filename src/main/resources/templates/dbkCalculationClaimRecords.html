@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Orpe Consultants</title>
+	<!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="Phoenixcoded">
+	<meta name="keywords"
+		content=", Flat ui, Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+	<meta name="author" content="Phoenixcoded">
+	<!-- Favicon icon -->
+
+	<link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+	<!-- Google font-->
+	<link href="https://fonts.googleapis.com/css?family=Mada:300,400,500,600,700" rel="stylesheet">
+	<!-- Required Fremwork -->
+	<link rel="stylesheet" type="text/css" href="/assets/plugins/bootstrap/dist/css/bootstrap.min.css">
+	<!-- Date-time picker css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/advance-elements/css/bootstrap-datetimepicker.css">
+	<!-- themify-icons line icon -->
+	<link rel="stylesheet" type="text/css" href="/assets/icon/themify-icons/themify-icons.css">
+	<!-- ico font -->
+	<link rel="stylesheet" type="text/css" href="/assets/icon/icofont/css/icofont.css">
+	<!-- flag icon framework css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/flag-icon/flag-icon.min.css">
+	<!-- Menu-Search css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/menu-search/css/component.css">
+	<!-- Style.css -->
+	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+
+	<link rel="stylesheet" type="text/css" href="/assets/css/linearicons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/simple-line-icons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/ionicons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+	<style>
+		.row-select {
+			transform: scale(1.1);
+			cursor: pointer;
+		}
+	</style>
+
+</head>
+
+<body>
+	<!-- Pre-loader start -->
+	<div class="theme-loader">
+		<div class="ball-scale">
+			<div></div>
+		</div>
+	</div>
+	<!-- Pre-loader end -->
+
+	<div id="pcoded" class="pcoded">
+		<div class="pcoded-overlay-box"></div>
+		<div class="pcoded-container navbar-wrapper">
+
+			<nav class="navbar header-navbar pcoded-header">
+				<div class="navbar-wrapper">
+					<div class="navbar-logo" navbar-theme="theme4">
+						<a class="mobile-menu" id="mobile-collapse" href="#!">
+							<i class="ti-menu"></i>
+						</a>
+						<a href="#!">
+							<img class="img-fluid" src="/assets/images/logo.png" alt="Theme-Logo" />
+						</a>
+						<a class="mobile-options">
+							<i class="ti-more"></i>
+						</a>
+					</div>
+					<div class="navbar-container container-fluid">
+						<div>
+							<ul class="nav-left">
+								<li>
+									<div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+									</div>
+								</li>
+								<li>
+									<a class="main-search morphsearch-search" href="#">
+										<!-- themify icon -->
+										<i class="ti-search"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#!" onclick="javascript:toggleFullScreen()">
+										<i class="ti-fullscreen"></i>
+									</a>
+								</li>
+
+							</ul>
+
+
+							<ul class="nav-right">
+								<!--<li>-->
+								<!--<a href="#" class="btn btn-primary">Upgrade To Pro</a>-->
+								<!--</li>-->
+
+
+
+								<li class="user-profile header-notification" th:if="${session.loggedInUser != null}">
+									<a href="#!">
+										<img th:src="@{/assets/images/user.png}" alt="User-Profile-Image">
+										<span th:text="${session.loggedInUser.username}">Username</span>
+										<i class="ti-angle-down"></i>
+									</a>
+									<ul class="show-notification profile-notification">
+										<li>
+											<a href="#!">
+												<i class="ti-settings"></i> Settings
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/user-profile}">
+												<i class="ti-user"></i> Profile
+											</a>
+										</li>
+										<li>
+											<a href="#!">
+												<i class="ti-email"></i> My Messages
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/auth-lock-screen}">
+												<i class="ti-lock"></i> Lock Screen
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/logout}">
+												<i class="ti-layout-sidebar-left"></i> Logout
+											</a>
+										</li>
+									</ul>
+								</li>
+
+								<!-- Show login/register buttons when user is not logged in -->
+
+
+							</ul>
+
+						</div>
+					</div>
+				</div>
+			</nav>
+
+
+			<div class="pcoded-main-container">
+				<div class="pcoded-wrapper">
+					<nav class="pcoded-navbar">
+						<div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+						<div class="pcoded-inner-navbar main-menu">
+
+							<div class="pcoded-navigatio-lavel">Main</div>
+							<ul class="pcoded-item pcoded-left-item">
+								<li class="pcoded-trigger ">
+									<a th:href="@{/index}">
+										<span class="pcoded-micon"><i class="ti-comments"></i></span>
+										<span class="pcoded-mtext">Dashboard</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+								</li>
+							</ul>
+							<ul class="pcoded-item pcoded-left-item">
+								<li class="pcoded-hasmenu ">
+									<a href="javascript:void(0)">
+										<span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+										<span class="pcoded-mtext">All Data</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+									<ul class="pcoded-submenu">
+										<li class="  ">
+											<a th:href="@{/importdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Import</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a th:href="@{/exportdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Export</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a th:href="@{/bomdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">BOM</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/bomclaimdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">BOM 2</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a th:href="@{/worksheets/claims/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/sb-consumption/groups}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB Qty Consumption</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/dbkcalculation/list/claimwise}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB DBK Consumption</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+
+
+
+
+									</ul>
+								</li>
+								<li class="pcoded-hasmenu active">
+									<a href="javascript:void(0)">
+										<span class="pcoded-micon"><i class="ti-crown"></i></span>
+										<span class="pcoded-mtext">Advance Calculations</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+									<ul class="pcoded-submenu">
+										<li class=" ">
+											<a th:href="@{/worksheet/importdata/select}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a th:href="@{/sbwiseqtyconsumption/bomclaimdata/select}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB wise Qty Consumption</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a th:href="@{/dbkcalculation/dataselect}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB wise DBK Calculation</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+									</ul>
+								</li>
+
+							</ul>
+							<div class="pcoded-navigatio-lavel">Data Import </div>
+
+
+
+							<ul class="pcoded-item pcoded-left-item">
+								<li>
+									<a th:href="@{/exceldataimport}">
+										<span class="pcoded-micon"><i class="ti-receipt"></i></span>
+										<span class="pcoded-mtext">Excel</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+								</li>
+
+
+							</ul>
+							<div class="pcoded-navigatio-lavel">Data Backup</div>
+							<ul class="pcoded-item pcoded-left-item">
+								<li>
+									<a th:href="@{/export/all-zip}">
+										<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+										<span class="pcoded-mtext">Download Data</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/backup/download}">
+										<span class="pcoded-micon"><i class="ti-receipt"></i></span>
+										<span class="pcoded-mtext">SQL</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+								</li>
+
+								<li>
+									<a th:href="@{/exportdata/excel/download}">
+										<span class="pcoded-micon"><i class="icofont icofont-file-excel"></i></span>
+										<span class="pcoded-mtext">Export to Excel</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+								</li>
+
+							</ul>
+
+							<div class="pcoded-navigatio-lavel">Other</div>
+							<ul class="pcoded-item pcoded-left-item">
+								<li class="pcoded-hasmenu ">
+									<a href="javascript:void(0)">
+										<span class="pcoded-micon"><i class="icofont icofont-businessman"></i></span>
+										<span class="pcoded-mtext">User</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+									<ul class="pcoded-submenu">
+										<li class="">
+											<a th:href="@{/register}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Add User</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class="">
+											<a th:href="@{/users}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">User List</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+
+										</li>
+
+
+									</ul>
+								</li>
+							</ul>
+
+						</div>
+					</nav>
+					<div class="pcoded-content">
+						<div class="pcoded-inner-content">
+
+							<div class="main-body">
+								<div class="page-wrapper">
+									<div class="page-header">
+										<div class="page-header-title">
+											<h3>Sb Wise DBK Calculation</h3>
+											<span>List of all exported materials</span>
+										</div>
+										<div class="page-header-breadcrumb">
+											<ul class="breadcrumb-title">
+												<li class="breadcrumb-item">
+													<a th:href="@{/index}">
+														<i class="icofont icofont-home"></i>
+													</a>
+												</li>
+												<li class="breadcrumb-item"><a th:href="@{/}">DBK Calculation</a>
+												</li>
+												<li class="breadcrumb-item"><a href="#!">Edit</a>
+												</li>
+
+											</ul>
+										</div>
+									</div>
+									<div class="page-body">
+										<!-- Profile Header Section (unchanged) -->
+
+										<div class="row">
+											<div class="col-xs-12 col-sm-12 col-lg-12">
+
+
+												<div class="card">
+													<!-- personal card start -->
+													<div class="card-header">
+														<h5>DBK Calculation</h5>
+														<span>Edit Selected Data</span>
+														<div class="card-header-right">
+															<i class="icofont icofont-rounded-down"></i>
+															<a th:href="@{/}">
+
+															</a>
+														</div>
+													</div>
+													<div class="card-block table-border-style">
+														<div class="d-flex justify-content-end">
+
+														</div>
+
+
+
+
+
+														<!-- Data Table style="max-height: 520px; overflow:auto;" -->
+														<div class="table-responsive"
+															style="max-height:520px; overflow:auto;">
+															<table id="calculationTable"
+																class="table table-hover table-sm table-bordered">
+																<thead class="table-light sticky-top"
+																	style="background-color:#fff; z-index:1020;">
+																	<tr>
+																		<th>SL NO</th>
+																		<th>Port Code</th>
+																		<th>Shipping Bill No</th>
+																		<th>Date</th>
+																		<th>LEO Date</th>
+																		<th>Description of Export product</th>
+																		<th>QUANTITY</th>
+																		<th>UNIT</th>
+																		<th>DBK SNO.</th>
+																		<th>FOB Value</th>
+																		<th>PMV Value</th>
+																		<th>Imp Quantity</th>
+																		<th>Consumption for 1 Exp.Qty</th>
+																		<th>Total Duty</th>
+																		<th>Total CIF Value</th>
+																		<th>DBK Amt</th>
+																		<th>CIF Value</th>
+																		<th>AIR Rate</th>
+																		<th>Air Amount</th>
+																		<th>SBR</th>
+																		<th>4/5 of BRoD(Main Claim)</th>
+																		<th>Diff BRoD - AIR</th>
+																		<th>Value addition</th>
+																		<th>Claim Ref No</th>
+																		<th>Claim Year</th>
+																		<th>Actions</th>
+																	</tr>
+																</thead>
+
+																<tbody>
+																	<!-- No records row -->
+																	<tr
+																		th:if="${recordsPage == null || #lists.isEmpty(recordsPage)}">
+																		<td th:colspan="26"
+																			class="text-center text-muted">No records
+																			found.</td>
+																	</tr>
+
+																	<!-- Data rows -->
+																	<tr th:each="row, stat : ${recordsPage}">
+																		<!-- SL NO -->
+																		<td class="text-center"
+																			th:text="${stat.index + 1}">1</td>
+
+																		<td data-col="portCode"
+																			th:text="${row.portCode}">Port Code</td>
+																		<td data-col="sbNo"
+																			th:text="${row.shippingBillNo}">SB No</td>
+																		<td data-col="sbDate"
+																			th:text="${row.shippingBillDate != null ? #temporals.format(row.shippingBillDate, 'dd-MM-yyyy') : ''}">
+																			Date</td>
+																		<td data-col="leoDate"
+																			th:text="${row.leoDate != null ? #temporals.format(row.leoDate, 'dd-MM-yyyy') : ''}">
+																			LEO</td>
+																		<td data-col="description"
+																			th:text="${row.exportDescription}">
+																			Description</td>
+
+																		<td class="text-end" data-col="quantity"
+																			th:text="${#numbers.formatDecimal(row.quantity, 1, 'COMMA', 2, 'POINT')}">
+																			Qty</td>
+
+																		<td data-col="unit" th:text="${row.unit}">Unit
+																		</td>
+																		<td data-col="dbkSno" th:text="${row.dbkSno}">
+																			DBK SNO</td>
+
+																		<!-- J: FOB Value -->
+																		<td class="text-end" data-col="fob"
+																			th:text="${#numbers.formatDecimal(row.fobValue, 2, 'COMMA', 2, 'POINT')}">
+																			FOB</td>
+
+																		<!-- K: PMV Value -->
+																		<td class="text-end" data-col="pmv"
+																			th:text="${#numbers.formatDecimal(row.pmvValue, 2, 'COMMA', 2, 'POINT')}">
+																			PMV</td>
+
+																		<!-- L: Imp Quantity -->
+																		<td class="text-end" data-col="impQty"
+																			th:text="${#numbers.formatDecimal(row.importQuantity, 2, 'COMMA', 2, 'POINT')}">
+																			Imp Qty</td>
+
+																		<!-- M: Consumption per Export Qty -->
+																		<td class="text-end" data-col="consumption"
+																			th:text="${#numbers.formatDecimal(row.consumptionPerExportQty, 2, 'COMMA', 2, 'POINT')}">
+																			Consumption</td>
+
+																		<!-- N: Total Duty -->
+																		<td class="text-end" data-col="totalDuty"
+																			th:text="${#numbers.formatDecimal(row.totalDuty, 2, 'COMMA', 2, 'POINT')}">
+																			Total Duty</td>
+
+																		<!-- O: Total CIF -->
+																		<td class="text-end" data-col="totalCif"
+																			th:text="${#numbers.formatDecimal(row.totalCifValue, 2, 'COMMA', 2, 'POINT')}">
+																			Total CIF</td>
+
+																		<!-- P: DBK Amt (computed) -->
+																		<td class="text-end" data-col="dbkAmt"
+																			th:text="${#numbers.formatDecimal(row.dbkAmount, 2, 'COMMA', 2, 'POINT')}">
+																			DBK Amt</td>
+
+																		<!-- Q: CIF Value (computed) -->
+																		<td class="text-end" data-col="cifValue"
+																			th:text="${#numbers.formatDecimal(row.cifValue, 2, 'COMMA', 2, 'POINT')}">
+																			CIF Value</td>
+
+																		<!-- R: AIR Rate -->
+																		<td class="text-end" data-col="airRate"
+																			th:text="${#numbers.formatDecimal(row.airRate* 100, 1, 'COMMA', 2, 'POINT')} + '%'">
+																			AIR Rate</td>
+
+																		<!-- S: Air Amount -->
+																		<td class="text-end" data-col="airAmount"
+																			th:text="${#numbers.formatDecimal(row.airAmount, 2, 'COMMA', 2, 'POINT')}">
+																			Air Amount</td>
+
+																		<!-- T: SBR (computed) -->
+																		<td class="text-end" data-col="sbr"
+																			th:text="${#numbers.formatDecimal(row.sbr, 6, 'COMMA', 6, 'POINT')}">
+																			SBR</td>
+
+																		<!-- U: 4/5 of BRoD (computed) -->
+																		<td class="text-end" data-col="brodFourFifth"
+																			th:text="${#numbers.formatDecimal(row.fourFifthOfBrodMainClaim, 2, 'COMMA', 2, 'POINT')}">
+																			4/5 BRoD</td>
+
+																		<!-- V: Diff BRoD - AIR (computed) -->
+																		<td class="text-end" data-col="diffBrodAir"
+																			th:text="${#numbers.formatDecimal(row.diffBrodAndAir, 2, 'COMMA', 2, 'POINT')}">
+																			Diff</td>
+
+																		<!-- W: Value Addition (computed) -->
+																		<td class="text-end" data-col="valueAddition"
+																			th:text="${#numbers.formatDecimal(row.valueAddition, 2, 'COMMA', 2, 'POINT')}">
+																			Value Addition</td>
+
+																		<!-- Claim fields -->
+																		<td data-col="claimRefNo"
+																			th:text="${row.claimRefNo}">Claim Ref No
+																		</td>
+																		<td data-col="claimYear"
+																			th:text="${row.claimYear}">Claim Year</td>
+
+																		<!-- Actions -->
+																		<td class="text-center">
+																			<a th:href="@{/dbkcalculation/list/claim (claimRefNo=${row.claimRefNo}, claimYear=${row.claimYear})}"
+																				class="btn btn-sm btn-outline-danger"
+																				title="Show claim records">
+																				<i class="bi bi-list-ul"></i> Delete
+																			</a>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+
+
+													</div>
+
+
+													<!-- Pagination controls -->
+
+													<div class="text-center">
+
+														<button type="button" id="saveBtn"
+															class="btn btn-info waves-effect waves-light m-r-5 m-b-5"
+															style="width: 150px;"> <i
+																class="bi bi-file-earmark-excel"></i> Download Excel
+														</button>
+
+
+													</div>
+
+
+
+
+
+
+												</div>
+
+											</div>
+										</div>
+										<!-- tab content end -->
+
+									</div>
+								</div>
+
+							</div>
+
+
+						</div>
+					</div>
+					<!--<div id="styleSelector">-->
+
+					<!--</div>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="fixed-button">
+		<a th:href="@{/index}" class="btn btn-primary" aria-hidden="true">Home</a>
+	</div>
+	</div>
+
+
+
+
+	<!-- Include SheetJS (xlsx) from CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+	<script>
+		/*
+		  Updated client-side export:
+		  - Builds Excel as before
+		  - Makes header row bold
+		  - Appends a totals row summing requested numeric columns (bold)
+		  - Keep numeric/date/percent conversions and formats
+		*/
+
+		(function () {
+			const EXCEL_HEADERS = [
+				"SL NO",
+				"Port Code",
+				"Shipping Bill No",
+				"Date",
+				"LEO Date",
+				"Description of Export product",
+				"QUANTITY",
+				"UNIT",
+				"DBK SNO.",
+				"FOB Value",
+				"PMV Value",
+				"Imp Quantity",
+				"Consumption for 1 Exp.Qty",
+				"Total Duty",
+				"Total CIF Value",
+				"DBK Amt",
+				"CIF Value",
+				"AIR Rate",
+				"Air Amount",
+				"SBR",
+				"4/5 of BRoD(Main Claim)",
+				"Diff b/w 4/5th of BRoD and AIR (if Diff is +ve BRoD is eligible",
+				"Value addition",
+				"Claim Ref No",
+				"Claim Year"
+			];
+
+			const DATA_COL_TO_HEADER = {
+				"portCode": "Port Code",
+				"sbNo": "Shipping Bill No",
+				"sbDate": "Date",
+				"leoDate": "LEO Date",
+				"description": "Description of Export product",
+				"quantity": "QUANTITY",
+				"unit": "UNIT",
+				"dbkSno": "DBK SNO.",
+				"fob": "FOB Value",
+				"pmv": "PMV Value",
+				"impQty": "Imp Quantity",
+				"consumption": "Consumption for 1 Exp.Qty",
+				"totalDuty": "Total Duty",
+				"totalCif": "Total CIF Value",
+				"dbkAmt": "DBK Amt",
+				"cifValue": "CIF Value",
+				"airRate": "AIR Rate",
+				"airAmount": "Air Amount",
+				"sbr": "SBR",
+				"brodFourFifth": "4/5 of BRoD(Main Claim)",
+				"diffBrodAir": "Diff b/w 4/5th of BRoD and AIR (if Diff is +ve BRoD is eligible",
+				"valueAddition": "Value addition",
+				"claimRefNo": "Claim Ref No",
+				"claimYear": "Claim Year"
+			};
+
+			const HEADER_CONFIG = {
+				"SL NO": {type: "n", z: "0"},
+				"Port Code": {type: "s"},
+				"Shipping Bill No": {type: "s"},
+				"Date": {type: "d", z: "dd-mm-yyyy"},
+				"LEO Date": {type: "d", z: "dd-mm-yyyy"},
+				"Description of Export product": {type: "s"},
+				"QUANTITY": {type: "n", z: "#,##0.###"},
+				"UNIT": {type: "s"},
+				"DBK SNO.": {type: "s"},
+				"FOB Value": {type: "n", z: "#,##0.00"},
+				"PMV Value": {type: "n", z: "#,##0.00"},
+				"Imp Quantity": {type: "n", z: "#,##0.###"},
+				"Consumption for 1 Exp.Qty": {type: "n", z: "#,##0.###"},
+				"Total Duty": {type: "n", z: "#,##0.00"},
+				"Total CIF Value": {type: "n", z: "#,##0.00"},
+				"DBK Amt": {type: "n", z: "#,##0.00"},
+				"CIF Value": {type: "n", z: "#,##0.00"},
+				"AIR Rate": {type: "p", z: "0.00%"},
+				"Air Amount": {type: "n", z: "#,##0.00"},
+				"SBR": {type: "n", z: "0.000000"},
+				"4/5 of BRoD(Main Claim)": {type: "n", z: "#,##0.00"},
+				"Diff b/w 4/5th of BRoD and AIR (if Diff is +ve BRoD is eligible": {type: "n", z: "#,##0.00"},
+				"Value addition": {type: "n", z: "#,##0.00"},
+				"Claim Ref No": {type: "s"},
+				"Claim Year": {type: "s"}
+			};
+
+			// Columns that must show totals (as requested)
+			const TOTAL_HEADERS = [
+				"FOB Value",
+				"PMV Value",
+				"Imp Quantity",
+				"Consumption for 1 Exp.Qty",
+				"Total Duty",
+				"Total CIF Value",
+				"DBK Amt",
+				"CIF Value",
+				"AIR Rate",
+				"Air Amount",
+				"SBR",
+				"4/5 of BRoD(Main Claim)",
+				"Diff b/w 4/5th of BRoD and AIR (if Diff is +ve BRoD is eligible",
+				"Value addition"
+			];
+
+			function parseDate_ddMMyyyy(s) {
+				if (!s || typeof s !== "string") return null;
+				const m = s.trim().match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+				if (!m) return null;
+				return new Date(parseInt(m[3], 10), parseInt(m[2], 10) - 1, parseInt(m[1], 10));
+			}
+
+			function parseNumber(text) {
+				if (text == null) return null;
+				const t = ("" + text).trim();
+				if (t === "") return null;
+				if (t.endsWith("%")) {
+					const num = parseFloat(t.replace(/%/g, "").replace(/,/g, ""));
+					if (isNaN(num)) return null;
+					return {value: num / 100, isPercent: true};
+				}
+				const raw = t.replace(/,/g, "");
+				if (!isNaN(raw) && raw !== "") {
+					const v = parseFloat(raw);
+					if (!isNaN(v)) return {value: v, isPercent: false};
+				}
+				return null;
+			}
+
+			function buildAOAFromTable(tbl) {
+				const aoa = [];
+				aoa.push(EXCEL_HEADERS.slice());
+				const tbody = tbl.tBodies[0];
+				if (!tbody) return aoa;
+				const trList = Array.from(tbody.rows);
+				let slNo = 1;
+				for (const tr of trList) {
+					const firstTd = tr.cells[0];
+					if (firstTd && firstTd.colSpan && firstTd.colSpan > 1) continue;
+					const rowArr = [];
+					for (const header of EXCEL_HEADERS) {
+						let value = "";
+						if (header === "SL NO") {
+							value = slNo++;
+							rowArr.push(value);
+							continue;
+						}
+						const dataCol = Object.keys(DATA_COL_TO_HEADER).find(k => DATA_COL_TO_HEADER[k] === header);
+						if (!dataCol) {
+							const headerIndex = EXCEL_HEADERS.indexOf(header);
+							const td = tr.cells[headerIndex];
+							value = td ? td.innerText.trim() : "";
+							rowArr.push(value);
+							continue;
+						}
+						const td = tr.querySelector(`td[data-col="${dataCol}"]`);
+						value = td ? td.innerText.trim() : "";
+						rowArr.push(value);
+					}
+					aoa.push(rowArr);
+				}
+				return aoa;
+			}
+
+			// compute totals for numeric columns; returns object header->sum (sums percent as decimal fractions)
+			function computeTotals(aoa) {
+				const totals = {};
+				// initialize
+				for (const h of TOTAL_HEADERS) totals[h] = 0;
+				// iterate rows 1..n-1
+				for (let r = 1; r < aoa.length; r++) {
+					const row = aoa[r];
+					for (let c = 0; c < EXCEL_HEADERS.length; c++) {
+						const header = EXCEL_HEADERS[c];
+						if (!TOTAL_HEADERS.includes(header)) continue;
+						const raw = row[c];
+						if (raw == null || raw === "") continue;
+						const parsed = parseNumber(String(raw));
+						if (parsed && parsed.value != null) {
+							// for percent headers, store decimal fractions (HEADER_CONFIG indicates type 'p')
+							totals[header] += parsed.value;
+						} else {
+							// try parse date? skip
+							const num = parseFloat(String(raw).replace(/,/g, ''));
+							if (!isNaN(num)) totals[header] += num;
+						}
+					}
+				}
+				return totals;
+			}
+
+			function aoaToWorksheetWithTypesAndTotals(aoa) {
+				// compute totals and append totals row to AOA copy
+				const totals = computeTotals(aoa);
+				// prepare totals row: fill blanks except numeric columns
+				const totalsRow = EXCEL_HEADERS.map(h => {
+					if (h === "SL NO") return "TOTAL";
+					if (TOTAL_HEADERS.includes(h)) {
+						// for 'AIR Rate' (percent) totals currently in decimal form (e.g. 0.37); we keep decimal
+						return totals[h];
+					}
+					return "";
+				});
+
+				// create a new aoaCopy to avoid mutating original
+				const aoaCopy = aoa.slice();
+				aoaCopy.push(totalsRow);
+
+				const ws = XLSX.utils.aoa_to_sheet(aoaCopy);
+				const headerRow = aoaCopy[0] || [];
+				const rowCount = aoaCopy.length;
+
+				// set header cells bold and ensure types/format for data rows and totals row
+				for (let C = 0; C < headerRow.length; C++) {
+					const header = headerRow[C];
+					// header cell (R=0)
+					const headerRef = XLSX.utils.encode_cell({c: C, r: 0});
+					if (!ws[headerRef]) ws[headerRef] = {t: 's', v: header};
+					ws[headerRef].s = ws[headerRef].s || {};
+					ws[headerRef].s.font = Object.assign({}, ws[headerRef].s.font, {bold: true});
+
+					const cfg = HEADER_CONFIG[header] || {type: "s"};
+					// handle data rows (1..rowCount-2) and totals row (rowCount-1)
+					for (let R = 1; R < rowCount; R++) {
+						const cell_ref = XLSX.utils.encode_cell({c: C, r: R});
+						const rawCell = ws[cell_ref];
+						const rawValue = rawCell ? rawCell.v : null;
+
+						// Totals row index
+						const isTotalsRow = (R === rowCount - 1);
+
+						if (rawValue == null || rawValue === "") {
+							if (isTotalsRow && TOTAL_HEADERS.includes(header)) {
+								// if no data, ensure totals cell exists as zero
+								ws[cell_ref] = {t: 'n', v: 0, z: cfg.z || 'General'};
+							} else if (isTotalsRow && header === "SL NO") {
+								ws[cell_ref] = {t: 's', v: 'TOTAL'};
+								ws[cell_ref].s = ws[cell_ref].s || {};
+								ws[cell_ref].s.font = Object.assign({}, ws[cell_ref].s.font, {bold: true});
+							}
+							continue;
+						}
+
+						if (isTotalsRow && TOTAL_HEADERS.includes(header)) {
+							// totalsRow numeric; rawValue is the numeric sum already (JS number)
+							const num = typeof rawValue === 'number' ? rawValue : parseFloat(String(rawValue));
+							if (!isNaN(num)) {
+								if (cfg.type === 'p') {
+									// totals for percent stored as decimal fractions (we treat as decimal)
+									ws[cell_ref] = {t: 'n', v: num, z: cfg.z || '0.00%'};
+								} else {
+									ws[cell_ref] = {t: 'n', v: num, z: cfg.z || 'General'};
+								}
+							} else {
+								ws[cell_ref] = {t: 's', v: String(rawValue)};
+							}
+							// bold totals cell
+							ws[cell_ref].s = ws[cell_ref].s || {};
+							ws[cell_ref].s.font = Object.assign({}, ws[cell_ref].s.font, {bold: true});
+							continue;
+						}
+
+						// regular data rows conversion (same as before)
+						if (cfg.type === "d") {
+							let dateVal = null;
+							if (rawValue instanceof Date) dateVal = rawValue;
+							else dateVal = parseDate_ddMMyyyy(String(rawValue));
+							if (dateVal) {
+								ws[cell_ref] = {t: 'd', v: dateVal, z: cfg.z || 'dd-mm-yyyy'};
+							} else {
+								ws[cell_ref] = {t: 's', v: String(rawValue)};
+							}
+						} else if (cfg.type === "p") {
+							const parsed = parseNumber(String(rawValue));
+							if (parsed && parsed.value != null) {
+								const val = parsed.isPercent ? parsed.value : parsed.value / 100;
+								ws[cell_ref] = {t: 'n', v: val, z: cfg.z || '0.00%'};
+							} else {
+								const num = parseFloat(String(rawValue).replace(/%/g, '').replace(/,/g, ''));
+								if (!isNaN(num)) {
+									ws[cell_ref] = {t: 'n', v: num / 100, z: cfg.z || '0.00%'};
+								} else {
+									ws[cell_ref] = {t: 's', v: String(rawValue)};
+								}
+							}
+						} else if (cfg.type === "n") {
+							const parsed = parseNumber(String(rawValue));
+							if (parsed && parsed.value != null) {
+								ws[cell_ref] = {t: 'n', v: parsed.value, z: cfg.z || 'General'};
+							} else {
+								const num = parseFloat(String(rawValue).replace(/,/g, ''));
+								if (!isNaN(num)) ws[cell_ref] = {t: 'n', v: num, z: cfg.z || 'General'};
+								else ws[cell_ref] = {t: 's', v: String(rawValue)};
+							}
+						} else {
+							ws[cell_ref] = {t: 's', v: String(rawValue)};
+						}
+					}
+				}
+
+				// set column widths
+				ws['!cols'] = headerRow.map(h => {
+					const cfg = HEADER_CONFIG[h] || {};
+					if (cfg.type === 'n') return {wpx: 90};
+					if (cfg.type === 'd') return {wpx: 90};
+					return {wpx: 140};
+				});
+
+				return ws;
+			}
+
+			const saveBtn = document.getElementById('saveBtn');
+			if (!saveBtn) return;
+
+			saveBtn.addEventListener('click', function () {
+				const tbl = document.getElementById('calculationTable');
+				if (!tbl) {alert('Table not found'); return;}
+
+				const aoa = buildAOAFromTable(tbl);
+				if (aoa.length <= 1) {
+					if (!confirm('No data rows found. Do you want to export headers and totals only?')) return;
+				}
+
+				const ws = aoaToWorksheetWithTypesAndTotals(aoa);
+				const wb = XLSX.utils.book_new();
+				XLSX.utils.book_append_sheet(wb, ws, 'DBK Calculation');
+
+				const now = new Date();
+				const ts = now.toISOString().slice(0, 19).replace(/:/g, '-');
+				const filename = `Sb Wise DBK Calculation - ${ts}.xlsx`;
+				XLSX.writeFile(wb, filename);
+			});
+		})();
+	</script>
+
+
+
+
+
+
+	<script type="text/javascript" src="/assets/plugins/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/tether/dist/js/tether.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- jquery slimscroll js -->
+	<script type="text/javascript" src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+	<!-- modernizr js -->
+	<script type="text/javascript" src="/assets/plugins/modernizr/modernizr.js"></script>
+	<script type="text/javascript" src="/assets/plugins/modernizr/feature-detects/css-scrollbars.js"></script>
+	<!-- Bootstrap date-time-picker js -->
+	<script type="text/javascript" src="/assets/pages/advance-elements/moment-with-locales.min.js"></script>
+	<!--<script type="text/javascript" src="assets/pages/advance-elements/bootstrap-datetimepicker.min.js"></script>-->
+	<!-- Custom js -->
+	<script type="text/javascript" src="/assets/js/script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+	<script src="/assets/pages/user-profile.js"></script>
+	<script src="/assets/js/pcoded.min.js"></script>
+	<script src="/assets/js/demo-12.js"></script>
+	<script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="/assets/js/jquery.mousewheel.min.js"></script>
+
+
+</body>
+
+</html>
