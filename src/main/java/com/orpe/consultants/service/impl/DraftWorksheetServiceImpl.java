@@ -210,8 +210,10 @@ public class DraftWorksheetServiceImpl implements DraftWorksheetService {
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
-		
+		if (id == null) {
+			throw new IllegalArgumentException("Draft worksheet id must not be null");
+		}
+		draftWorksheetRepository.deleteById(id);
 	}
 
 	@Override

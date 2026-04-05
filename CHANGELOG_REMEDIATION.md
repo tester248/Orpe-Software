@@ -31,6 +31,11 @@ These commits were already present on `dev` after the report commit:
   - Change: `deleteById(Long bomId)` now deletes from `worksheetRepository` instead of `bomDataRepository`
   - Report mapping: Critical Bugs -> Wrong repository in `deleteById`
 
+- `P0-2` Draft worksheet delete implemented
+  - File: `src/main/java/com/orpe/consultants/service/impl/DraftWorksheetServiceImpl.java`
+  - Change: implemented `deleteById(Long id)` using `draftWorksheetRepository.deleteById(id)` with null-id validation
+  - Report mapping: Critical Bugs -> Empty `deleteById` implementation in DraftWorksheetServiceImpl
+
 - `6710563` - Last Commit
   - Cherry-picked from `upstream/main` commit `a96341a`
   - Included changes in:
