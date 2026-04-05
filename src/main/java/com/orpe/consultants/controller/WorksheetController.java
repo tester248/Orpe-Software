@@ -347,7 +347,12 @@ public class WorksheetController {
 	}
 
 	@PostMapping("/draftworksheet/updateBulk")
-	public ResponseEntity<?> updateBulkDrafts(@RequestBody List<DraftWorksheetDTO> drafts) {
+	public ResponseEntity<?> updateBulkDrafts(@RequestBody List<DraftWorksheetDTO> drafts, HttpSession session) {
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
+		}
+
 		try {
 			draftWorksheetService.updateBulkDrafts(drafts);
 			return ResponseEntity.ok("Updated successfully");

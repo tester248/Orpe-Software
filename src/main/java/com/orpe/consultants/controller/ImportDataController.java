@@ -12,6 +12,8 @@ import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -148,9 +150,14 @@ public class ImportDataController {
 	  
 	  @PostMapping(path = "/importdata/bulk-save", consumes = "application/json", produces = "application/json")
 	  @ResponseBody
-	  public Map<String, Object> bulkSave(@RequestBody List<ImportDataDTO> rows) {
+	  public ResponseEntity<Map<String, Object>> bulkSave(@RequestBody List<ImportDataDTO> rows, HttpSession session) {
+	    User loggedInUser = (User) session.getAttribute("loggedInUser");
+	    if (loggedInUser == null) {
+	      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "User not logged in"));
+	    }
+
 	    int saved = importDataService.saveBulk(rows);
-	    return Map.of("savedCount", saved);
+	    return ResponseEntity.ok(Map.of("savedCount", saved));
 	  }
 	}
 

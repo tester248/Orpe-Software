@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -173,9 +175,14 @@ public class ExportDataController {
 
 	@PostMapping(path = "/exportdata/bulk-save", consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public Map<String, Object> bulkSave(@RequestBody List<ExportDataDTO> rows) {
+	public ResponseEntity<Map<String, Object>> bulkSave(@RequestBody List<ExportDataDTO> rows, HttpSession session) {
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "User not logged in"));
+		}
+
 		int saved = exportDataService.saveBulk(rows);
-		return Map.of("savedCount", saved);
+		return ResponseEntity.ok(Map.of("savedCount", saved));
 	}
 	
 	

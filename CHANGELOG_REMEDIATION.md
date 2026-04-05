@@ -58,6 +58,14 @@ These commits were already present on `dev` after the report commit:
     - `src/main/resources/templates/bomClaimList.html`
   - Report mapping: Security Issues -> DELETE operations using GET requests (CSRF risk)
 
+- `P1-2` Added session authentication checks to bulk API endpoints
+  - Updated endpoints:
+    - `POST /importdata/bulk-save` in `src/main/java/com/orpe/consultants/controller/ImportDataController.java`
+    - `POST /exportdata/bulk-save` in `src/main/java/com/orpe/consultants/controller/ExportDataController.java`
+    - `POST /draftworksheet/updateBulk` in `src/main/java/com/orpe/consultants/controller/WorksheetController.java`
+  - Change: endpoints now reject unauthenticated calls with HTTP 401
+  - Report mapping: Security Issues -> Missing Authentication on API Endpoints
+
 - `6710563` - Last Commit
   - Cherry-picked from `upstream/main` commit `a96341a`
   - Included changes in:
