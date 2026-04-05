@@ -137,10 +137,11 @@ public class AuthController {
 
         try {
             User authenticatedUser = userService.authenticateUser(loginRequest);
+            User sessionSafeUser = buildSessionSafeUser(authenticatedUser);
             
-            // Store user in session
-            session.setAttribute("loggedInUser", authenticatedUser);
-            session.setAttribute("username", authenticatedUser.getUsername());
+            // Store a session-safe user representation without password.
+            session.setAttribute("loggedInUser", sessionSafeUser);
+            session.setAttribute("username", sessionSafeUser.getUsername());
             
             log.info("User logged in successfully: {}", authenticatedUser.getUsername());
             return "redirect:/index";
@@ -250,5 +251,21 @@ public class AuthController {
         
         model.addAttribute("user", loggedInUser);
         return "change-password";
+    }
+
+    private User buildSessionSafeUser(User user) {
+        return User.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .fullName(user.getFullName())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .role(user.getRole())
+                .status(user.getStatus())
+                .lastLoginDate(user.getLastLoginDate())
+                .createdAt(user.getCreatedAt())
+                .updatedAt(user.getUpdatedAt())
+                .notes(user.getNotes())
+                .build();
     }
 }

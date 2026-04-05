@@ -66,6 +66,11 @@ These commits were already present on `dev` after the report commit:
   - Change: endpoints now reject unauthenticated calls with HTTP 401
   - Report mapping: Security Issues -> Missing Authentication on API Endpoints
 
+- `P1-3` Stopped storing password hash in session
+  - File: `src/main/java/com/orpe/consultants/controller/AuthController.java`
+  - Change: login flow now stores a sanitized `User` object in session with no password field populated
+  - Report mapping: Security Issues -> Storing User entity with password hash in session
+
 - `6710563` - Last Commit
   - Cherry-picked from `upstream/main` commit `a96341a`
   - Included changes in:
