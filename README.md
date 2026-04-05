@@ -34,6 +34,171 @@ A Spring Boot web application for managing duty drawback claims end-to-end: from
 
 ---
 
+## Wiki
+
+This section explains the software in everyday language.
+
+### What This Software Does
+
+Think of this system as a digital checklist plus calculator for export claims.
+
+If your company exports goods, you may be allowed to claim back some duties/taxes paid on imported materials. This software helps you:
+
+- upload import and export records,
+- link materials to products,
+- calculate claim amounts,
+- review drafts,
+- finalize claim calculations,
+- keep an audit trail.
+
+### Full Process in Simple Steps
+
+1. Upload Import Data
+- Add Bill of Entry records (what was imported, when, how much duty was paid).
+
+2. Upload Export Data
+- Add Shipping Bill records (what was exported, when, value, quantity).
+
+3. Upload BOM Data
+- BOM means Bill of Materials.
+- This is the recipe of materials required for each export item.
+
+4. Create BOM Claims
+- Link import-side materials to specific export claims.
+
+5. Build Worksheet
+- The worksheet calculates how much quantity was used and what duty amount can be claimed.
+
+6. Save Drafts
+- Keep work-in-progress before finalizing.
+
+7. Run DBK Calculation
+- DBK means Drawback.
+- This gives the final claim numbers (claim-wise and shipping-bill-wise views).
+
+### Glossary
+
+- BOE: Bill of Entry
+Meaning: Import customs document.
+
+- SB: Shipping Bill
+Meaning: Export customs document.
+
+- BOM: Bill of Materials
+Meaning: List of input materials used to make export products.
+
+- DBK: Drawback
+Meaning: Refund/credit of certain duties on exported goods.
+
+- Claim Ref No
+Meaning: Your internal/customs reference number for a claim set.
+
+- Claim Year
+Meaning: Year bucket of the claim.
+
+- BE No / BE Date
+Meaning: Bill of Entry number/date.
+
+- SB No / SB Date
+Meaning: Shipping Bill number/date.
+
+- Qty Opening Balance
+Meaning: Available material quantity before current usage.
+
+- Qty Used
+Meaning: Quantity consumed for the current worksheet calculation.
+
+- Closing Balance
+Meaning: Remaining quantity after usage.
+
+- Stock Wise Eligibility (OPEN/CLOSED)
+Meaning:
+- OPEN: Record can still be used.
+- CLOSED: Record is exhausted or should not be used further.
+
+- Duty Claimed Amount
+Meaning: Amount being claimed for refund/drawback.
+
+- SBR
+Meaning: Drawback rate reference used in calculation outputs.
+
+- ARO / BRC
+Meaning: Trade/compliance references captured with export records.
+
+### Main Screens (What They Mean)
+
+- Dashboard
+High-level metrics and navigation.
+
+- Import Data List
+All imported-material records with filtering and cleanup options.
+
+- Export Data List
+All shipping bill/export records.
+
+- BOM Data List
+Material mapping master.
+
+- BOM Claim List
+Claim-level linkage between BOM and trade records.
+
+- Worksheet List
+Calculation workspace; where claim math is prepared.
+
+- Worksheet Draft List
+Saved but not finalized calculations.
+
+- DBK Calculation
+Final claim numbers and summaries.
+
+- User Management
+Manage users and roles (Admin only).
+
+### Roles 
+
+- Admin
+Can manage users and full data access.
+
+- Manager
+Operational access across business flows (depending on page permissions).
+
+- User
+Regular data entry and processing role.
+
+- Viewer
+Read-only or minimal-change role.
+
+### Common Questions
+
+Q: Why do I need both Import and Export data?
+A: Claim calculation depends on both what you imported and what you exported.
+
+Q: Why is a row not usable in worksheet?
+A: It may be marked CLOSED in stock eligibility or have no usable balance.
+
+Q: Why save draft first?
+A: Draft lets you review and correct calculations before final claim submission.
+
+Q: Can I download data?
+A: Yes. Some modules provide Excel download options for reporting and checks.
+
+### Tips for Non-Technical Users
+
+- Start with small files first to validate column quality.
+- Keep date formats consistent.
+- Check claim reference and year carefully before saving.
+- Review closing balance before finalizing.
+- Use filters to isolate one claim/user/year at a time.
+
+### Suggested Team Workflow
+
+- Data Entry Team: Upload import/export/BOM files.
+- Claims Team: Build worksheets and drafts.
+- Reviewer: Validate figures and stock balances.
+- Admin: Final approval and user governance.
+
+---
+
 ## Prerequisites
 
 - Java 17+
