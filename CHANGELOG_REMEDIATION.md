@@ -102,6 +102,17 @@ These commits were already present on `dev` after the report commit:
   - Change: methods previously returning null/false/0 placeholders now throw `UnsupportedOperationException` with clear messages
   - Report mapping: Missing/Incomplete Implementations -> Stub methods in WorksheetServiceImpl and DraftWorksheetServiceImpl
 
+## Post-Remediation Regression Fixes
+
+- `R-1` Fixed import bulk-save 400 caused by blank stock eligibility values
+  - Files:
+    - `src/main/java/com/orpe/consultants/dto/StockWiseEligibility.java`
+    - `src/main/resources/templates/uploadImportData.html`
+  - Root cause: JSON payload sent empty string (`""`) for `stockWiseEligibility`, which Jackson could not coerce to enum.
+  - Fixes:
+    - Added `@JsonCreator` in `StockWiseEligibility` to map blank to `null` and accept case variants (`OPEN`, `CLOSE`, `CLOSED`).
+    - Normalized frontend value in upload table payload builder to `OPEN`/`CLOSED`/`null`.
+
 - `6710563` - Last Commit
   - Cherry-picked from `upstream/main` commit `a96341a`
   - Included changes in:
