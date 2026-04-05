@@ -112,7 +112,7 @@ public class BomDataController {
 		return "bomDataList";
 	}
 
-	@GetMapping("/bomdata/delete/{bomId}")
+	@PostMapping("/bomdata/delete/{bomId}")
 	public String deleteBom(@PathVariable Long bomId, @RequestParam(required = false) String filterField,
 			@RequestParam(required = false) String filterValue, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "100") int size, HttpSession session) {

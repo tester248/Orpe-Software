@@ -42,6 +42,22 @@ These commits were already present on `dev` after the report commit:
   - Behavior: null or zero `bomExportModelId` now fails fast with clear `IllegalArgumentException`
   - Report mapping: Critical Bugs -> Hardcoded fallback ID (invalid data reference)
 
+### Priority 1 - Critical Security Fixes
+
+- `P1-1` Converted delete operations from GET to POST
+  - Controller mappings updated:
+    - `src/main/java/com/orpe/consultants/controller/UserController.java`
+    - `src/main/java/com/orpe/consultants/controller/ImportDataController.java`
+    - `src/main/java/com/orpe/consultants/controller/ExportDataController.java`
+    - `src/main/java/com/orpe/consultants/controller/BomDataController.java`
+    - `src/main/java/com/orpe/consultants/controller/BomClaimController.java`
+  - Template actions updated from link-based delete to POST forms:
+    - `src/main/resources/templates/userList.html`
+    - `src/main/resources/templates/importDataList.html`
+    - `src/main/resources/templates/exportDataList.html`
+    - `src/main/resources/templates/bomClaimList.html`
+  - Report mapping: Security Issues -> DELETE operations using GET requests (CSRF risk)
+
 - `6710563` - Last Commit
   - Cherry-picked from `upstream/main` commit `a96341a`
   - Included changes in:

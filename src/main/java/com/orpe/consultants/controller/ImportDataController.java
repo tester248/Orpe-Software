@@ -109,7 +109,7 @@ public class ImportDataController {
 	  }
 	  
 	  
-	  @GetMapping("/importdata/delete/{importId}")
+	  @PostMapping("/importdata/delete/{importId}")
 	  public String deleteUser(
 	      @PathVariable Long importId, 
 	      @RequestParam(required = false) String filterField,

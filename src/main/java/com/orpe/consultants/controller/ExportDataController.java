@@ -149,7 +149,7 @@ public class ExportDataController {
 		return "exportDataList";
 	}
 
-	@GetMapping("/exportdata/delete/{exportId}")
+	@PostMapping("/exportdata/delete/{exportId}")
 	public String deleteUser(@PathVariable Long exportId, @RequestParam(required = false) String filterField,
 			@RequestParam(required = false) String filterValue, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "100") int size, HttpSession session) {

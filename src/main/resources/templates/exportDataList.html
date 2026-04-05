@@ -578,9 +578,10 @@
 
 																		<td>
 
-																			<a th:href="@{/exportdata/delete/{id}(id=${row.exportId}, filterField=${filterField}, filterValue=${filterValue}, page=${currentPage}, size=${pageSize})}"
-																				onclick="return confirm('Are you sure you want to delete this record?')"
-																				class="btn btn-danger btn-sm btn-round btn-outline-danger">Delete</a>
+																			<form th:action="@{/exportdata/delete/{id}(id=${row.exportId}, filterField=${filterField}, filterValue=${filterValue}, page=${currentPage}, size=${pageSize})}" method="post" style="display:inline;">
+																				<button type="submit" onclick="return confirm('Are you sure you want to delete this record?')"
+																					class="btn btn-danger btn-sm btn-round btn-outline-danger">Delete</button>
+																			</form>
 																		</td>
 																	</tr>
 																</tbody>

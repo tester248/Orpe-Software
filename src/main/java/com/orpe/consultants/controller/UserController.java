@@ -98,7 +98,7 @@ public class UserController {
     }
     
     // Delete User
-    @GetMapping("/users/delete/{id}")  // Use GET instead of POST
+    @PostMapping("/users/delete/{id}")
     public String deleteUser(@PathVariable Long id, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
         if (loggedInUser == null) {

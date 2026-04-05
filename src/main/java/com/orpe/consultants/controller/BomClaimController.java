@@ -158,7 +158,7 @@ public class BomClaimController {
 	}
 	
 	
-	@GetMapping("/bomclaimdata/delete/{claimId}")
+	@PostMapping("/bomclaimdata/delete/{claimId}")
 	public String deleteUser(@PathVariable Long claimId, @RequestParam(required = false) String filterField,
 			@RequestParam(required = false) String filterValue, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "100") int size, HttpSession session) {
