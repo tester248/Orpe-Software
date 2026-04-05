@@ -71,6 +71,20 @@ These commits were already present on `dev` after the report commit:
   - Change: login flow now stores a sanitized `User` object in session with no password field populated
   - Report mapping: Security Issues -> Storing User entity with password hash in session
 
+### Priority 2 - High Security Fixes
+
+- `P2-5` Externalized datasource credentials
+  - File: `src/main/resources/application.properties`
+  - Change:
+    - `spring.datasource.username=${DB_USERNAME:root}`
+    - `spring.datasource.password=${DB_PASSWORD:password}`
+  - Report mapping: Security Issues -> Hardcoded database credentials
+
+## Pending High-Priority Items
+
+- `P2-4` Spring Security integration remains pending.
+  - Reason: this requires coordinated refactoring of the current custom session-based authentication flow, login handling, and role checks across multiple controllers/templates to avoid regressions.
+
 - `6710563` - Last Commit
   - Cherry-picked from `upstream/main` commit `a96341a`
   - Included changes in:
