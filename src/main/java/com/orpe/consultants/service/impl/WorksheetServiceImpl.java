@@ -210,7 +210,7 @@ public class WorksheetServiceImpl implements WorksheetService {
 
     @Override
     public void deleteById(Long bomId) {
-        bomDataRepository.deleteById(bomId);
+		worksheetRepository.deleteById(bomId);
     }
     
     @Override
