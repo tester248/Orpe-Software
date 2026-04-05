@@ -188,14 +188,12 @@ public class DraftWorksheetServiceImpl implements DraftWorksheetService {
 
 	@Override
 	public DraftWorksheetDTO save(DraftWorksheetDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException("Draft worksheet save is not implemented yet");
 	}
 
 	@Override
 	public Optional<DraftWorksheetDTO> findById(Long id) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		throw new UnsupportedOperationException("Draft worksheet findById is not implemented yet");
 	}
 
 	@Override
@@ -218,26 +216,22 @@ public class DraftWorksheetServiceImpl implements DraftWorksheetService {
 
 	@Override
 	public Page<DraftWorksheetDTO> search(WorksheetDataFilter filter, Pageable pageable) {
-		
-		return null;
+		throw new UnsupportedOperationException("Draft worksheet search is not implemented yet");
 	}
 
 	@Override
 	public byte[] exportData(WorksheetDataFilter filter) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException("Draft worksheet exportData is not implemented yet");
 	}
 
 	@Override
 	public boolean validate(DraftWorksheetDTO dto) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException("Draft worksheet validate is not implemented yet");
 	}
 
 	@Override
 	public long count(WorksheetDataFilter filter) {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException("Draft worksheet count is not implemented yet");
 	}
 	
 	

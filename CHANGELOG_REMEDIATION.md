@@ -95,6 +95,13 @@ These commits were already present on `dev` after the report commit:
     - Code Quality -> Debug logging with `System.out`/`System.err`
     - Security Issues -> Verbose error messages to client
 
+- `P3-8` Replaced silent stub returns with explicit unsupported-operation failures
+  - Files:
+    - `src/main/java/com/orpe/consultants/service/impl/WorksheetServiceImpl.java`
+    - `src/main/java/com/orpe/consultants/service/impl/DraftWorksheetServiceImpl.java`
+  - Change: methods previously returning null/false/0 placeholders now throw `UnsupportedOperationException` with clear messages
+  - Report mapping: Missing/Incomplete Implementations -> Stub methods in WorksheetServiceImpl and DraftWorksheetServiceImpl
+
 - `6710563` - Last Commit
   - Cherry-picked from `upstream/main` commit `a96341a`
   - Included changes in:

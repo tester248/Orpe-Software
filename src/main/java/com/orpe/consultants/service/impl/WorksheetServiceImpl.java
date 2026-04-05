@@ -310,24 +310,21 @@ public class WorksheetServiceImpl implements WorksheetService {
 
 	@Override
 	public byte[] exportData(WorksheetDataFilter filter) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException("Worksheet exportData is not implemented yet");
 	}
 
 
 
 	@Override
 	public boolean validate(WorksheetDTO dto) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException("Worksheet validate is not implemented yet");
 	}
 
 
 
 	@Override
 	public long count(WorksheetDataFilter filter) {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException("Worksheet count is not implemented yet");
 	}
 	
 	
