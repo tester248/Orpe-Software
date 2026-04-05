@@ -85,6 +85,16 @@ These commits were already present on `dev` after the report commit:
 - `P2-4` Spring Security integration remains pending.
   - Reason: this requires coordinated refactoring of the current custom session-based authentication flow, login handling, and role checks across multiple controllers/templates to avoid regressions.
 
+### Priority 3 - Code Quality
+
+- `P3-6` Replaced console prints with structured logging in worksheet endpoints
+  - File: `src/main/java/com/orpe/consultants/controller/WorksheetController.java`
+  - Change: replaced `System.out`/`System.err`/`printStackTrace` with `log.debug`/`log.warn`/`log.error`
+  - Security hardening: removed internal exception message exposure from bulk-save and draft-save API error responses
+  - Report mapping:
+    - Code Quality -> Debug logging with `System.out`/`System.err`
+    - Security Issues -> Verbose error messages to client
+
 - `6710563` - Last Commit
   - Cherry-picked from `upstream/main` commit `a96341a`
   - Included changes in:

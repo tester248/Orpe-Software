@@ -183,9 +183,9 @@ public class WorksheetController {
 		// ✅ Use the injected mapper (already has JavaTimeModule)
 		try {
 			String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(worksheetDTOList);
-			System.out.println("Incoming worksheetDTOList payload:\n" + json);
+			log.debug("Incoming worksheetDTOList payload:{}{}", System.lineSeparator(), json);
 		} catch (Exception e) {
-			System.out.println("Failed to print incoming worksheetDTOList: " + e.getMessage());
+			log.debug("Failed to serialize worksheetDTOList for debug logging", e);
 		}
 
 		try {
@@ -193,12 +193,11 @@ public class WorksheetController {
 			return ResponseEntity.ok("Bulk save successful");
 		} catch (ConstraintViolationException ex) {
 			ex.getConstraintViolations().forEach(
-					cv -> System.err.println("Validation failed at " + cv.getPropertyPath() + ": " + cv.getMessage()));
+					cv -> log.warn("Validation failed at {}: {}", cv.getPropertyPath(), cv.getMessage()));
 			return ResponseEntity.badRequest().body("Validation errors occurred. See server logs for details.");
 		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("Error during bulk save: " + e.getMessage());
+			log.error("Unexpected error during worksheet bulk save", e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error during bulk save");
 		}
 	}
 
@@ -272,9 +271,9 @@ public class WorksheetController {
 		try {
 			// ✅ Now uses globally configured ObjectMapper (has JavaTimeModule)
 			String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(draftWorksheetDTOList);
-			System.out.println("Incoming draftWorksheetDTOList payload:\n" + json);
+			log.debug("Incoming draftWorksheetDTOList payload:{}{}", System.lineSeparator(), json);
 		} catch (Exception e) {
-			System.out.println("Failed to print incoming draftWorksheetDTOList: " + e.getMessage());
+			log.debug("Failed to serialize draftWorksheetDTOList for debug logging", e);
 		}
 
 		try {
@@ -282,12 +281,11 @@ public class WorksheetController {
 			return ResponseEntity.ok("Draft save successful");
 		} catch (ConstraintViolationException ex) {
 			ex.getConstraintViolations().forEach(
-					cv -> System.err.println("Validation failed at " + cv.getPropertyPath() + ": " + cv.getMessage()));
+					cv -> log.warn("Validation failed at {}: {}", cv.getPropertyPath(), cv.getMessage()));
 			return ResponseEntity.badRequest().body("Validation errors occurred. See server logs for details.");
 		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("Error during draft save: " + e.getMessage());
+			log.error("Unexpected error during draft worksheet save", e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error during draft save");
 		}
 	}
 
