@@ -678,6 +678,13 @@
 															function nth(tr, idx) {
 																return tr.querySelector(`td:nth-child(${idx})`)?.innerText?.trim() || '';
 															}
+															function normalizeEligibility(txt) {
+																const v = (txt || '').trim().toUpperCase();
+																if (!v) return null;
+																if (v === 'OPEN') return 'OPEN';
+																if (v === 'CLOSE' || v === 'CLOSED') return 'CLOSED';
+																return null;
+															}
 
 															async function collectSelectedAsDTO() {
 																const out = [];
@@ -729,7 +736,7 @@
 																		qtyOpeningBalance: parseDecimal(nth(tr, 30)),
 																		qtyUsed: parseDecimal(nth(tr, 31)),
 																		closingBalance: parseDecimal(nth(tr, 32)),
-																		stockWiseEligibility: nth(tr, 33), // OPEN/CLOSED
+																		stockWiseEligibility: normalizeEligibility(nth(tr, 33)),
 
 																		// Claims
 																		dutyClaimedAmt: parseDecimal(nth(tr, 34)),
