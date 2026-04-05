@@ -138,9 +138,7 @@ public class WorksheetServiceImpl implements WorksheetService {
 
                 for (WorksheetExportModelsDTO exportModelDTO : worksheetDTO.getExportModels()) {
                     try {
-                        final Long bomIdToUse = (exportModelDTO.getBomExportModelId() != null && exportModelDTO.getBomExportModelId() == 0)
-                                    ? 1L
-                                    : exportModelDTO.getBomExportModelId();
+						final Long bomIdToUse = requireValidBomExportModelId(exportModelDTO.getBomExportModelId());
 
                         // Feature: Create new export model entity and set properties from DTO.
                         WorksheetExportModels exportModelEntity = new WorksheetExportModels();
@@ -540,8 +538,7 @@ public class WorksheetServiceImpl implements WorksheetService {
 	        }
 
 	        // Set bomExportModelData
-	        final Long bomExportModelIdToUse = (emDto.getBomExportModelId() != null && emDto.getBomExportModelId() == 0)
-	                                          ? 1L : emDto.getBomExportModelId();
+	        final Long bomExportModelIdToUse = requireValidBomExportModelId(emDto.getBomExportModelId());
 
 	        BomExportModelQuantity bomExportData = bomExportModelRepository.findById(bomExportModelIdToUse)
 	                .orElseThrow(() -> new RuntimeException("BomExportModelQuantity not found"));
@@ -590,6 +587,13 @@ public class WorksheetServiceImpl implements WorksheetService {
 	    if (worksheetDTO.getDraftWorksheetId() != null) {
 	        draftWorksheetRepository.deleteById(worksheetDTO.getDraftWorksheetId());
 	    }
+	}
+
+	private Long requireValidBomExportModelId(Long bomExportModelId) {
+	    if (bomExportModelId == null || bomExportModelId == 0L) {
+	        throw new IllegalArgumentException("Invalid bomExportModelId: value must be non-null and non-zero");
+	    }
+	    return bomExportModelId;
 	}
 
 

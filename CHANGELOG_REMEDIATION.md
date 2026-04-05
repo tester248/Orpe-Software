@@ -36,6 +36,12 @@ These commits were already present on `dev` after the report commit:
   - Change: implemented `deleteById(Long id)` using `draftWorksheetRepository.deleteById(id)` with null-id validation
   - Report mapping: Critical Bugs -> Empty `deleteById` implementation in DraftWorksheetServiceImpl
 
+- `P0-3` Hardcoded fallback ID removed from worksheet export-model handling
+  - File: `src/main/java/com/orpe/consultants/service/impl/WorksheetServiceImpl.java`
+  - Change: replaced fallback-to-`1L` logic with strict validation via `requireValidBomExportModelId(...)`
+  - Behavior: null or zero `bomExportModelId` now fails fast with clear `IllegalArgumentException`
+  - Report mapping: Critical Bugs -> Hardcoded fallback ID (invalid data reference)
+
 - `6710563` - Last Commit
   - Cherry-picked from `upstream/main` commit `a96341a`
   - Included changes in:
