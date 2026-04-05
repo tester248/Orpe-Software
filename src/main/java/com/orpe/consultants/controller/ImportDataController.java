@@ -156,8 +156,12 @@ public class ImportDataController {
 	      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "User not logged in"));
 	    }
 
-	    int saved = importDataService.saveBulk(rows);
-	    return ResponseEntity.ok(Map.of("savedCount", saved));
+	    try {
+	      int saved = importDataService.saveBulk(rows);
+	      return ResponseEntity.ok(Map.of("savedCount", saved));
+	    } catch (IllegalArgumentException ex) {
+	      return ResponseEntity.badRequest().body(Map.of("error", ex.getMessage()));
+	    }
 	  }
 	}
 

@@ -767,8 +767,16 @@
 																		headers: {'Content-Type': 'application/json'},
 																		body: JSON.stringify(rows)
 																	});
-																	if (!resp.ok) throw new Error(await resp.text());
-																	const res = await resp.json();
+																	let res;
+																	try {
+																		res = await resp.json();
+																	} catch (_) {
+																		res = null;
+																	}
+																	if (!resp.ok) {
+																		const msg = (res && res.error) ? res.error : `Save failed with status ${resp.status}`;
+																		throw new Error(msg);
+																	}
 																	alert(`Saved ${res.savedCount} rows.`);
 																	window.location.href = '/importdata/list';
 																} catch (e) {

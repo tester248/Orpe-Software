@@ -20,6 +20,7 @@ import jakarta.persistence.criteria.Subquery;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -39,6 +40,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class ImportDataServiceImpl implements ImportDataService {
 
 	private final MaterialRepository materialRepo;
@@ -49,10 +51,24 @@ public class ImportDataServiceImpl implements ImportDataService {
 
 	@Override
 	public int saveBulk(List<ImportDataDTO> rows) {
+		if (rows == null || rows.isEmpty()) {
+			throw new IllegalArgumentException("No rows provided for import");
+		}
+
 		int saved = 0;
 		Map<String, Material> cache = new HashMap<>();
+		List<String> errors = new ArrayList<>();
+		int rowNumber = 1;
 
 		for (ImportDataDTO dto : rows) {
+			normalize(dto);
+			List<String> rowErrors = validateBulkRow(dto);
+			if (!rowErrors.isEmpty()) {
+				errors.add("Row " + rowNumber + ": " + String.join(", ", rowErrors));
+				rowNumber++;
+				continue;
+			}
+
 			Material mat = null;
 			if (dto.getBomPartNo() != null && !dto.getBomPartNo().isBlank()) {
 				String key = dto.getBomPartNo().trim();
@@ -69,8 +85,66 @@ public class ImportDataServiceImpl implements ImportDataService {
 
 			importRepo.save(entity);
 			saved++;
+			rowNumber++;
+		}
+
+		if (saved == 0 && !errors.isEmpty()) {
+			throw new IllegalArgumentException("No valid rows to save. " + String.join(" | ", errors));
+		}
+
+		if (!errors.isEmpty()) {
+			log.warn("Saved {} row(s). Skipped invalid rows: {}", saved, String.join(" | ", errors));
 		}
 		return saved;
+	}
+
+	private void normalize(ImportDataDTO dto) {
+		dto.setBeNo(trim(dto.getBeNo()));
+		dto.setClaimRefNo(trim(dto.getClaimRefNo()));
+		dto.setClaimYear(trim(dto.getClaimYear()));
+		dto.setItemDescription(trim(dto.getItemDescription()));
+		dto.setUom(trim(dto.getUom()));
+		dto.setPortCode(trim(dto.getPortCode()));
+		dto.setCountryOfOrigin(trim(dto.getCountryOfOrigin()));
+		dto.setSupplierNameAddress(trim(dto.getSupplierNameAddress()));
+		dto.setItchsCode(trim(dto.getItchsCode()));
+		dto.setBomPartNo(trim(dto.getBomPartNo()));
+		dto.setAltBoePartNo(trim(dto.getAltBoePartNo()));
+		dto.setDbkPartNo(trim(dto.getDbkPartNo()));
+		dto.setNotnNo(trim(dto.getNotnNo()));
+		dto.setNotnEligibility(trim(dto.getNotnEligibility()));
+		dto.setClientName(trim(dto.getClientName()));
+	}
+
+	private List<String> validateBulkRow(ImportDataDTO dto) {
+		List<String> rowErrors = new ArrayList<>();
+		if (!StringUtils.hasText(dto.getBeNo())) {
+			rowErrors.add("BE No is required");
+		} else if (dto.getBeNo().length() > 100) {
+			rowErrors.add("BE No must be <= 100 characters");
+		}
+		if (dto.getBeDate() == null) {
+			rowErrors.add("BE Date is required");
+		}
+		if (!StringUtils.hasText(dto.getClaimRefNo())) {
+			rowErrors.add("Claim Ref No is required");
+		}
+		if (!StringUtils.hasText(dto.getClaimYear())) {
+			rowErrors.add("Claim Year is required");
+		}
+		if (!StringUtils.hasText(dto.getItemDescription())) {
+			rowErrors.add("Item Description is required");
+		}
+		if (!StringUtils.hasText(dto.getUom())) {
+			rowErrors.add("UOM is required");
+		}
+		if (dto.getQuantity() == null) {
+			rowErrors.add("Quantity is required");
+		}
+		if (dto.getAssessableValue() == null) {
+			rowErrors.add("Assessable Value is required");
+		}
+		return rowErrors;
 	}
 
 	@Override
